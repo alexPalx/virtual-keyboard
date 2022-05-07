@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+.keyboard {
+    gap: 7.5px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 890px;
+    padding: 7.5px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+.keyboard__key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    color: #222222;
+    background-color: #eeeeee;
+}
+
+.key-backspace {
+    width: 125px;
+}
+
+.key-tab {
+    width: 62.5px;
+}
+
+.key-del {
+    width: 55px;
+}
+
+.key-shift,
+.key-caps {
+    width: 125px;
+}
+
+.key-enter,
+.key-shift-right {
+    width: 107.5px;
+}
+
+/* .key-ctrl, .key-ctrl-right {} */
+
+/* .key-win {} */
+
+/* .key-alt, .key-alt-right {} */
+
+.key-space {
+    width: 412.5px;
+}
