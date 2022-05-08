@@ -1,5 +1,23 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.textarea {
+    width: 890px;
+    height: 300px;
+    margin: 50px;
+    padding: 10px;
+    resize: none;
+    font-size: 24px;
 }
 
 .keyboard {
@@ -13,16 +31,48 @@
 }
 
 .keyboard__key {
+    cursor: pointer;
+    transition: 0.1s;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50px;
     height: 50px;
-    font-size: 24px;
+    font-size: 22px;
     border: 1px solid #dddddd;
     border-radius: 5px;
     color: #222222;
     background-color: #eeeeee;
+}
+
+.keyboard__key:hover {
+    border-color: #aab8df;
+}
+
+@keyframes keyActive {
+    0% {
+        background-color: #eeeeee;
+    }
+    100% {
+        background-color: #aab8df;
+    }
+}
+
+@keyframes keyRemove {
+    0% {
+        background-color: #aab8df;
+    }
+    100% {
+        background-color: #eeeeee;
+    }
+}
+
+.keyboard__key.active {
+    animation: keyActive 0.1s linear forwards;
+}
+
+.keyboard__key.remove {
+    animation: keyRemove 0.1s linear forwards;
 }
 
 .key-backspace {

@@ -82,25 +82,77 @@ const keysetEng = [
     ['►', '►'],
     ['Ctrl', 'Ctrl', 'key-ctrl-right']
 ]
-const keyboardObject = new Keyboard(keysetEng);
-console.log(keyboardObject);
 
-const init = () => {
+const createTextarea = () => {
+    const textareaElement = document.createElement('textarea');
+    textareaElement.classList.add('textarea');
+    document.body.append(textareaElement);
+};
+
+const mouseDown = (event) => {
+    event.target.classList.add('active');
+    event.target.classList.remove('remove');
+};
+
+const mouseUp = (event) => {
+    document.querySelectorAll('.keyboard__key.active').forEach(key => {
+        key.classList.add('remove');
+        key.classList.remove('active');
+    });
+
+};
+
+const click = (event) => {
+    if (event.target.tagName !== 'BUTTON') return;
+    const textarea = document.querySelector('textarea');
+    textarea.value += event.target.textContent;
+};
+
+const keyDown = (event) => {
+    
+};
+
+const keyUp = (event) => {
+
+};
+
+const keyPress = (event) => {
+
+};
+
+const createKeyboard = () => {
+    const keyboardObject = new Keyboard(keysetEng);
+    console.log(keyboardObject);
+
     const keyboardElement = document.createElement('div');
     keyboardElement.classList.add('keyboard');
     document.body.append(keyboardElement);
     const keyboard = document.querySelector('.keyboard');
 
     for (let k = 0; k < keyboardObject.keys.length; ++k) {
-        const keyElement = document.createElement('div');
+        const keyElement = document.createElement('button');
         keyElement.textContent = keyboardObject.keys[k].key;
         keyElement.id = `key-${k}`;
         keyElement.classList.add('keyboard__key');
         if (keyboardObject.keys[k].newClass) {
             keyElement.classList.add(keyboardObject.keys[k].newClass);
         }
+
         keyboard.append(keyElement);
     }
+
+    keyboard.addEventListener('mousedown', mouseDown);
+    document.addEventListener('mouseup', mouseUp);
+    keyboard.addEventListener('click', click);
+
+    document.addEventListener('keydown', keyDown);
+    document.addEventListener('keyup', keyUp);
+    document.addEventListener('keypress', keyPress);
+};
+
+const init = () => {
+    createTextarea();
+    createKeyboard();
 };
 
 window.addEventListener('load', init);
