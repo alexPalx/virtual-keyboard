@@ -81,12 +81,17 @@ const keysetEng = [
     ['▼', '▼'],
     ['►', '►'],
     ['Ctrl', 'Ctrl', 'key-ctrl-right']
-]
+];
+
+let keyboardObject;
+let keyboard;
+let textarea;
 
 const createTextarea = () => {
     const textareaElement = document.createElement('textarea');
     textareaElement.classList.add('textarea');
     document.body.append(textareaElement);
+    textarea = document.querySelector('.textarea');
 };
 
 const mouseDown = (event) => {
@@ -99,35 +104,53 @@ const mouseUp = (event) => {
         key.classList.add('remove');
         key.classList.remove('active');
     });
-
 };
 
 const click = (event) => {
     if (event.target.tagName !== 'BUTTON') return;
-    const textarea = document.querySelector('textarea');
     textarea.value += event.target.textContent;
 };
 
 const keyDown = (event) => {
-    
+    // if (event.key === 'Shift' ||
+    //     event.key === 'Caps Lock' ||
+    //     event.key === 'Tab' ||
+    //     event.key === 'Ctrl' ||
+    //     event.key === 'Win' ||
+    //     event.key === 'Alt' ||
+    //     event.key === 'Enter' ||
+    //     event.key === 'Backspace' ||
+    //     event.key === 'Del'
+    // )
+
+    keyboardObject.keys.forEach((k, i) => {
+        if (k.key === event.key) {
+            keyboard.children[i].classList.add('active');
+            keyboard.children[i].classList.remove('remove');
+            textarea.value += k.key;
+        }
+    })
 };
 
 const keyUp = (event) => {
-
+    keyboardObject.keys.forEach((k, i) => {
+        if (k.key === event.key) {
+            keyboard.children[i].classList.add('remove');
+            keyboard.children[i].classList.remove('active');
+        }
+    })
 };
 
-const keyPress = (event) => {
-
-};
+// const keyPress = (event) => { };
 
 const createKeyboard = () => {
-    const keyboardObject = new Keyboard(keysetEng);
+    keyboardObject = new Keyboard(keysetEng);
     console.log(keyboardObject);
 
     const keyboardElement = document.createElement('div');
     keyboardElement.classList.add('keyboard');
     document.body.append(keyboardElement);
-    const keyboard = document.querySelector('.keyboard');
+    keyboard = document.querySelector('.keyboard');
 
     for (let k = 0; k < keyboardObject.keys.length; ++k) {
         const keyElement = document.createElement('button');
@@ -147,7 +170,7 @@ const createKeyboard = () => {
 
     document.addEventListener('keydown', keyDown);
     document.addEventListener('keyup', keyUp);
-    document.addEventListener('keypress', keyPress);
+    // document.addEventListener('keypress', keyPress);
 };
 
 const init = () => {
