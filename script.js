@@ -46,7 +46,7 @@ const keysetEng = [
     [']', '}'],
     ['\\', '|'],
     ['Del', 'Del', 'key-del'],
-    ['Caps Lock', 'Caps Lock', 'key-caps'],
+    ['CapsLock', 'CapsLock', 'key-caps'],
     ['a', 'A'],
     ['s', 'S'],
     ['d', 'D'],
@@ -86,6 +86,9 @@ const keysetEng = [
 let keyboardObject;
 let keyboard;
 let textarea;
+let shiftActive = false;
+let capsActive = false;
+let shiftPressedWith = '';
 
 const createTextarea = () => {
     const textareaElement = document.createElement('textarea');
@@ -94,13 +97,33 @@ const createTextarea = () => {
     textarea = document.querySelector('.textarea');
 };
 
+const pressShift = (state) => {
+    if (state) shiftActive = state;
+    shiftActive = !shiftActive;
+    Array.from(keyboard.children).forEach((k, i) => {
+        k.textContent = keyboardObject.keys[i][shiftActive ? 'keyAlt' : 'key'];
+    });
+};
+
 const mouseDown = (event) => {
+    if (event.target.textContent === 'Shift') {
+        pressShift();
+        shiftPressedWith = 'mouse';
+    }
+
     event.target.classList.add('active');
     event.target.classList.remove('remove');
 };
 
 const mouseUp = (event) => {
+    if (shiftPressedWith === 'mouse') {
+        pressShift();
+        shiftPressedWith = '';
+    }
+
     document.querySelectorAll('.keyboard__key.active').forEach(key => {
+        if (key.textContent === 'CapsLock' && capsActive) return;
+        if (key.textContent === 'Shift' && shiftPressedWith) return;
         key.classList.add('remove');
         key.classList.remove('active');
     });
@@ -108,37 +131,81 @@ const mouseUp = (event) => {
 
 const click = (event) => {
     if (event.target.tagName !== 'BUTTON') return;
-    textarea.value += event.target.textContent;
+
+    else if (event.target.textContent === 'CapsLock') {
+        if (!capsActive) {
+            event.target.classList.add('active');
+            event.target.classList.remove('remove');
+        }
+        else {
+            event.target.classList.add('remove');
+            event.target.classList.remove('active');
+        }
+        pressShift();
+        capsActive = !capsActive;
+    }
+    else if (event.target.textContent === 'Tab') {
+        textarea.value += '\t';
+    }
+    else if (event.target.textContent === 'Enter') {
+        textarea.value += '\n';
+    }
+
+    keyboardObject.keys.forEach(k => {
+        if (!k.newClass) {
+            if (k.key === event.target.textContent) textarea.value += k.key;
+            else if (k.keyAlt === event.target.textContent) textarea.value += k.keyAlt;
+        }
+    });
 };
 
 const keyDown = (event) => {
-    // if (event.key === 'Shift' ||
-    //     event.key === 'Caps Lock' ||
-    //     event.key === 'Tab' ||
-    //     event.key === 'Ctrl' ||
-    //     event.key === 'Win' ||
-    //     event.key === 'Alt' ||
-    //     event.key === 'Enter' ||
-    //     event.key === 'Backspace' ||
-    //     event.key === 'Del'
-    // )
+    if (event.key === 'Shift') {
+        pressShift();
+        shiftPressedWith = 'keyboard';
+    }
+    if (event.key === 'CapsLock') {
+        pressShift();
+        capsActive = !capsActive;
+    }
+    else if (event.key === 'Tab') {
+        textarea.value += '\t';
+    }
+    else if (event.key === 'Enter') {
+        textarea.value += '\n';
+    }
+    // else if (event.key === 'Backspace') { }
+    // else if (event.key === 'Del') { }
+    // else if (event.key === 'Ctrl') { }
+    // else if (event.key === 'Meta') { }
+    // else if (event.key === 'Alt') { }
+
 
     keyboardObject.keys.forEach((k, i) => {
-        if (k.key === event.key) {
+        if (k.key === event.key || k.keyAlt === event.key) {
             keyboard.children[i].classList.add('active');
             keyboard.children[i].classList.remove('remove');
-            textarea.value += k.key;
         }
-    })
+        if (!k.newClass) {
+            if (k.key === event.key) textarea.value += k.key;
+            else if (k.keyAlt === event.key) textarea.value += k.keyAlt;
+        }
+    });
 };
 
 const keyUp = (event) => {
+    if (event.key === 'Shift') {
+        pressShift();
+        shiftPressedWith = '';
+    }
+
     keyboardObject.keys.forEach((k, i) => {
-        if (k.key === event.key) {
+        if (k.key === event.key || k.keyAlt === event.key) {
+            if (event.key === 'CapsLock' && capsActive) return;
             keyboard.children[i].classList.add('remove');
             keyboard.children[i].classList.remove('active');
         }
-    })
+    });
 };
 
 // const keyPress = (event) => { };
