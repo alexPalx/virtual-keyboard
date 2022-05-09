@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,200&display=swap');
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body {
+.wrapper {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,14 +14,16 @@ body {
 }
 
 .textarea {
-    width: 890px;
+    width: 900px;
     height: 300px;
-    margin: 50px;
+    margin: 20px;
     padding: 10px;
     resize: none;
-    font-size: 24px;
     border: 1px solid #cccccc;
     border-radius: 5px;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.02em;
 }
 
 .textarea:focus {
@@ -28,10 +32,11 @@ body {
 
 .keyboard {
     gap: 7.5px;
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
-    width: 890px;
-    padding: 7.5px;
+    width: 900px;
+    padding: 10px 7.5px;
     border: 1px solid #cccccc;
     border-radius: 5px;
 }
@@ -44,11 +49,12 @@ body {
     align-items: center;
     width: 50px;
     height: 50px;
-    font-size: 22px;
     border: 1px solid #dddddd;
     border-radius: 5px;
     color: #222222;
     background-color: #eeeeee;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 22px;
 }
 
 .keyboard__key:hover {
@@ -103,12 +109,13 @@ body {
     width: 107.5px;
 }
 
-/* .key-ctrl, .key-ctrl-right {} */
-
-/* .key-win {} */
-
-/* .key-alt, .key-alt-right {} */
-
 .key-space {
     width: 412.5px;
+}
+
+.keyboard-info {
+    margin: 20px;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.02em;
 }
