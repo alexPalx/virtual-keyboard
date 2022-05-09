@@ -1,7 +1,8 @@
 class Key {
-    constructor(key, keyAlt = key, newClass = '') {
+    constructor(key, keyAlt = key, kCode, newClass = '') {
         this.key = key;
         this.keyAlt = keyAlt;
+        this.kCode = kCode;
         this.newClass = newClass;
     }
 }
@@ -13,144 +14,144 @@ class Keyboard {
         keysets.forEach((set, i) => {
             this.keys.push([]);
             set.forEach(k => {
-                this.keys[i].push(new Key(k[0], k[1], k[2]));
+                this.keys[i].push(new Key(k[0], k[1], k[2], k[3]));
             });
         });
     }
 }
 
 const keysetEng = [
-    ['`', '~'],
-    ['1', '!'],
-    ['2', '@'],
-    ['3', '#'],
-    ['4', '$'],
-    ['5', '%'],
-    ['6', '^'],
-    ['7', '&'],
-    ['8', '*'],
-    ['9', '('],
-    ['0', ')'],
-    ['-', '_'],
-    ['=', '+'],
-    ['Backspace', 'Backspace', 'key-backspace'],
-    ['Tab', 'Tab', 'key-tab'],
-    ['q', 'Q'],
-    ['w', 'W'],
-    ['e', 'E'],
-    ['r', 'R'],
-    ['t', 'T'],
-    ['y', 'Y'],
-    ['u', 'U'],
-    ['i', 'I'],
-    ['o', 'O'],
-    ['p', 'P'],
-    ['[', '{'],
-    [']', '}'],
-    ['\\', '|'],
-    ['Del', 'Del', 'key-del'],
-    ['CapsLock', 'CapsLock', 'key-caps'],
-    ['a', 'A'],
-    ['s', 'S'],
-    ['d', 'D'],
-    ['f', 'F'],
-    ['g', 'G'],
-    ['h', 'H'],
-    ['j', 'J'],
-    ['k', 'K'],
-    ['l', 'L'],
-    [';', ':'],
-    ['\'', '"'],
-    ['Enter', 'Enter', 'key-enter'],
-    ['Shift', 'Shift', 'key-shift'],
-    ['z', 'Z'],
-    ['x', 'X'],
-    ['c', 'C'],
-    ['v', 'V'],
-    ['b', 'B'],
-    ['n', 'N'],
-    ['m', 'M'],
-    [',', '<'],
-    ['.', '>'],
-    ['/', '?'],
-    ['▲', '▲'],
-    ['Shift', 'Shift', 'key-shift-right'],
-    ['Ctrl', 'Ctrl', 'key-ctrl'],
-    ['Win', 'Win', 'key-win'],
-    ['Alt', 'Alt', 'key-alt'],
-    [' ', ' ', 'key-space'],
-    ['Alt', 'Alt', 'key-alt-right'],
-    ['◄', '◄'],
-    ['▼', '▼'],
-    ['►', '►'],
-    ['Ctrl', 'Ctrl', 'key-ctrl-right']
+    ['`', '~', 192],
+    ['1', '!', 49],
+    ['2', '@', 50],
+    ['3', '#', 51],
+    ['4', '$', 52],
+    ['5', '%', 53],
+    ['6', '^', 54],
+    ['7', '&', 55],
+    ['8', '*', 56],
+    ['9', '(', 57],
+    ['0', ')', 48],
+    ['-', '_', 189],
+    ['=', '+', 187],
+    ['Backspace', 'Backspace', 8, 'key-backspace'],
+    ['Tab', 'Tab', 9, 'key-tab'],
+    ['q', 'Q', 81],
+    ['w', 'W', 87],
+    ['e', 'E', 69],
+    ['r', 'R', 82],
+    ['t', 'T', 84],
+    ['y', 'Y', 89],
+    ['u', 'U', 85],
+    ['i', 'I', 73],
+    ['o', 'O', 79],
+    ['p', 'P', 80],
+    ['[', '{', 219],
+    [']', '}', 221],
+    ['\\', '|', 220],
+    ['Del', 'Del', 46, 'key-del'],
+    ['CapsLock', 'CapsLock', 20, 'key-caps'],
+    ['a', 'A', 65],
+    ['s', 'S', 83],
+    ['d', 'D', 68],
+    ['f', 'F', 70],
+    ['g', 'G', 71],
+    ['h', 'H', 72],
+    ['j', 'J', 74],
+    ['k', 'K', 75],
+    ['l', 'L', 76],
+    [';', ':', 186],
+    ['\'', '"', 222],
+    ['Enter', 'Enter', 13, 'key-enter'],
+    ['Shift', 'Shift', 16, 'key-shift'],
+    ['z', 'Z', 90],
+    ['x', 'X', 88],
+    ['c', 'C', 67],
+    ['v', 'V', 86],
+    ['b', 'B', 66],
+    ['n', 'N', 78],
+    ['m', 'M', 77],
+    [',', '<', 188],
+    ['.', '>', 190],
+    ['/', '?', 191],
+    ['▲', '▲', 38],
+    ['Shift', 'Shift', 16, 'key-shift-right'],
+    ['Ctrl', 'Ctrl', 17, 'key-ctrl'],
+    ['Win', 'Win', 91, 'key-win'],
+    ['Alt', 'Alt', 18, 'key-alt'],
+    [' ', ' ', 32, 'key-space'],
+    ['Alt', 'Alt', 18, 'key-alt-right'],
+    ['◄', '◄', 37],
+    ['▼', '▼', 40],
+    ['►', '►', 39],
+    ['Ctrl', 'Ctrl', 17, 'key-ctrl-right']
 ];
 
 const keysetRu = [
-    ['ё', 'Ё'],
-    ['1', '!'],
-    ['2', '"'],
-    ['3', '№'],
-    ['4', ';'],
-    ['5', '%'],
-    ['6', ':'],
-    ['7', '?'],
-    ['8', '*'],
-    ['9', '('],
-    ['0', ')'],
-    ['-', '_'],
-    ['=', '+'],
-    ['Backspace', 'Backspace', 'key-backspace'],
-    ['Tab', 'Tab', 'key-tab'],
-    ['й', 'Й'],
-    ['ц', 'Ц'],
-    ['у', 'У'],
-    ['к', 'К'],
-    ['е', 'Е'],
-    ['н', 'Н'],
-    ['г', 'Г'],
-    ['ш', 'Ш'],
-    ['щ', 'Щ'],
-    ['з', 'З'],
-    ['х', 'Х'],
-    ['ъ', 'Ъ'],
-    ['\\', '/'],
-    ['Del', 'Del', 'key-del'],
-    ['CapsLock', 'CapsLock', 'key-caps'],
-    ['ф', 'Ф'],
-    ['ы', 'Ы'],
-    ['в', 'В'],
-    ['а', 'А'],
-    ['п', 'П'],
-    ['р', 'Р'],
-    ['о', 'О'],
-    ['л', 'Л'],
-    ['д', 'Д'],
-    ['ж', 'Ж'],
-    ['э', 'Э'],
-    ['Enter', 'Enter', 'key-enter'],
-    ['Shift', 'Shift', 'key-shift'],
-    ['я', 'Я'],
-    ['ч', 'Ч'],
-    ['с', 'С'],
-    ['м', 'М'],
-    ['и', 'И'],
-    ['т', 'Т'],
-    ['ь', 'Ь'],
-    ['б', 'Б'],
-    ['ю', 'Ю'],
-    ['.', ','],
-    ['▲', '▲'],
-    ['Shift', 'Shift', 'key-shift-right'],
-    ['Ctrl', 'Ctrl', 'key-ctrl'],
-    ['Win', 'Win', 'key-win'],
-    ['Alt', 'Alt', 'key-alt'],
-    [' ', ' ', 'key-space'],
-    ['Alt', 'Alt', 'key-alt-right'],
-    ['◄', '◄'],
-    ['▼', '▼'],
-    ['►', '►'],
-    ['Ctrl', 'Ctrl', 'key-ctrl-right']
+    ['ё', 'Ё', 192],
+    ['1', '!', 49],
+    ['2', '"', 50],
+    ['3', '№', 51],
+    ['4', ';', 52],
+    ['5', '%', 53],
+    ['6', ':', 54],
+    ['7', '?', 55],
+    ['8', '*', 56],
+    ['9', '(', 57],
+    ['0', ')', 48],
+    ['-', '_', 189],
+    ['=', '+', 187],
+    ['Backspace', 'Backspace', 8, 'key-backspace'],
+    ['Tab', 'Tab', 9, 'key-tab'],
+    ['й', 'Й', 81],
+    ['ц', 'Ц', 87],
+    ['у', 'У', 69],
+    ['к', 'К', 82],
+    ['е', 'Е', 84],
+    ['н', 'Н', 89],
+    ['г', 'Г', 85],
+    ['ш', 'Ш', 73],
+    ['щ', 'Щ', 79],
+    ['з', 'З', 80],
+    ['х', 'Х', 219],
+    ['ъ', 'Ъ', 221],
+    ['\\', '/', 220],
+    ['Del', 'Del', 46, 'key-del'],
+    ['CapsLock', 'CapsLock', 20, 'key-caps'],
+    ['ф', 'Ф', 65],
+    ['ы', 'Ы', 83],
+    ['в', 'В', 68],
+    ['а', 'А', 70],
+    ['п', 'П', 71],
+    ['р', 'Р', 72],
+    ['о', 'О', 74],
+    ['л', 'Л', 75],
+    ['д', 'Д', 76],
+    ['ж', 'Ж', 186],
+    ['э', 'Э', 222],
+    ['Enter', 'Enter', 13, 'key-enter'],
+    ['Shift', 'Shift', 16, 'key-shift'],
+    ['я', 'Я', 90],
+    ['ч', 'Ч', 88],
+    ['с', 'С', 67],
+    ['м', 'М', 86],
+    ['и', 'И', 66],
+    ['т', 'Т', 78],
+    ['ь', 'Ь', 77],
+    ['б', 'Б', 188],
+    ['ю', 'Ю', 190],
+    ['.', ',', 191],
+    ['▲', '▲', 38],
+    ['Shift', 'Shift', 16, 'key-shift-right'],
+    ['Ctrl', 'Ctrl', 17, 'key-ctrl'],
+    ['Win', 'Win', 91, 'key-win'],
+    ['Alt', 'Alt', 18, 'key-alt'],
+    [' ', ' ', 32, 'key-space'],
+    ['Alt', 'Alt', 18, 'key-alt-right'],
+    ['◄', '◄', 37],
+    ['▼', '▼', 40],
+    ['►', '►', 39],
+    ['Ctrl', 'Ctrl', 17, 'key-ctrl-right']
 ];
 
 let keyboardObject;
@@ -252,8 +253,10 @@ const keyDown = (event) => {
         altActive = true;
     }
     if (event.key === 'Shift') {
-        pressShift();
-        shiftPressedWith = 'keyboard';
+        if (!shiftPressedWith) {
+            pressShift();
+            shiftPressedWith = 'keyboard';
+        }
     }
     if (event.key === 'CapsLock') {
         pressShift();
@@ -265,20 +268,18 @@ const keyDown = (event) => {
     if (event.key === 'Enter') {
         textarea.value += '\n';
     }
+
     // else if (event.key === 'Backspace') { }
     // else if (event.key === 'Del') { }
-    // else if (event.key === 'Ctrl') { }
-    // else if (event.key === 'Meta') { }
-    // else if (event.key === 'Alt') { }
 
     keyboardObject.keys[keyboardObject.lang].forEach((k, i) => {
-        if (k.key === event.key || k.keyAlt === event.key || event.key === 'Control' && k.key === 'Ctrl') {
+        if (k.kCode === event.keyCode || event.key === 'Control' && k.key === 'Ctrl') {
             keyboard.children[i].classList.add('active');
             keyboard.children[i].classList.remove('remove');
         }
         if (!k.newClass) {
-            if (k.key === event.key) textarea.value += k.key;
-            else if (k.keyAlt === event.key) textarea.value += k.keyAlt;
+            if (k.kCode === event.keyCode && shiftActive) textarea.value += k.keyAlt;
+            else if(k.kCode === event.keyCode) textarea.value += k.key;
         }
     });
 };
@@ -295,7 +296,7 @@ const keyUp = (event) => {
         shiftPressedWith = '';
     }
     keyboardObject.keys[keyboardObject.lang].forEach((k, i) => {
-        if (k.key === event.key || k.keyAlt === event.key  || event.key === 'Control' && k.key === 'Ctrl') {
+        if (k.kCode === event.keyCode || event.key === 'Control' && k.key === 'Ctrl') {
             if (event.key === 'CapsLock' && capsActive) return;
             keyboard.children[i].classList.add('remove');
             keyboard.children[i].classList.remove('active');
@@ -334,8 +335,6 @@ const createKeyboard = () => {
     document.addEventListener('keyup', keyUp);
     // document.addEventListener('keypress', keyPress);
 };
-
-
 
 const changeLang = () => {
     keyboardObject.lang = +!keyboardObject.lang;
