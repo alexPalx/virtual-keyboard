@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,200&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.textarea {
+    width: 900px;
+    height: 300px;
+    margin: 20px;
+    padding: 10px;
+    resize: none;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.02em;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.keyboard {
+    gap: 7.5px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    width: 900px;
+    padding: 10px 7.5px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+.keyboard__key {
+    cursor: pointer;
+    transition: 0.1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    color: #222222;
+    background-color: #eeeeee;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 22px;
+}
+
+.keyboard__key:hover {
+    border-color: #aab8df;
+}
+
+@keyframes keyActive {
+    0% {
+        background-color: #eeeeee;
+    }
+    100% {
+        background-color: #aab8df;
+    }
+}
+
+@keyframes keyRemove {
+    0% {
+        background-color: #aab8df;
+    }
+    100% {
+        background-color: #eeeeee;
+    }
+}
+
+.keyboard__key.active {
+    animation: keyActive 0.1s linear forwards;
+}
+
+.keyboard__key.remove {
+    animation: keyRemove 0.1s linear forwards;
+}
+
+.key-backspace {
+    width: 125px;
+}
+
+.key-tab {
+    width: 62.5px;
+}
+
+.key-del {
+    width: 55px;
+}
+
+.key-shift,
+.key-caps {
+    width: 125px;
+}
+
+.key-enter,
+.key-shift-right {
+    width: 107.5px;
+}
+
+.key-space {
+    width: 412.5px;
+}
+
+.keyboard-info {
+    margin: 20px;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.02em;
+}
