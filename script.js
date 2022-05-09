@@ -166,9 +166,10 @@ let shiftPressedWith = '';
 const createTextarea = () => {
     const textareaElement = document.createElement('textarea');
     textareaElement.classList.add('textarea');
-    textareaElement.setAttribute('readonly', '');
     document.body.append(textareaElement);
     textarea = document.querySelector('.textarea');
+    textarea.addEventListener('keydown', disableTextareaInput, false);
+    textarea.addEventListener('keypress', disableTextareaInput, false);
 };
 
 const updateKeys = () => {
@@ -208,6 +209,7 @@ const mouseUp = (event) => {
 };
 
 const click = (event) => {
+    textarea.focus();
     if (event.target.tagName !== 'BUTTON') return;
 
     if (event.target.textContent === 'CapsLock') {
@@ -228,16 +230,24 @@ const click = (event) => {
     if (event.target.textContent === 'Enter') {
         textarea.value += '\n';
     }
+    // implement it later
+    if (event.target.textContent === 'Backspace' || event.target.textContent === 'Delete') {
+        textarea.value = textarea.value.slice(0, textarea.value.length - 1);
+    }
 
     keyboardObject.keys[keyboardObject.lang].forEach(k => {
         if (!k.newClass) {
             if (k.key === event.target.textContent) textarea.value += k.key;
             else if (k.keyAlt === event.target.textContent) textarea.value += k.keyAlt;
         }
+        else if (k.kCode === 32 && event.target.textContent === ' ') {
+            textarea.value += k.key;
+        }
     });
 };
 
 const keyDown = (event) => {
+    textarea.focus();
     if (event.key === 'Control' && altActive) {
         changeLang();
         ctrlActive = false;
@@ -268,9 +278,10 @@ const keyDown = (event) => {
     if (event.key === 'Enter') {
         textarea.value += '\n';
     }
-
-    // else if (event.key === 'Backspace') { }
-    // else if (event.key === 'Del') { }
+    // implement it later
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+        textarea.value = textarea.value.slice(0, textarea.value.length - 1);
+    }
 
     keyboardObject.keys[keyboardObject.lang].forEach((k, i) => {
         if (k.kCode === event.keyCode || event.key === 'Control' && k.key === 'Ctrl') {
@@ -280,6 +291,9 @@ const keyDown = (event) => {
         if (!k.newClass) {
             if (k.kCode === event.keyCode && shiftActive) textarea.value += k.keyAlt;
             else if(k.kCode === event.keyCode) textarea.value += k.key;
+        }
+        else if (k.kCode === event.keyCode && event.keyCode === 32) {
+            textarea.value += k.key;
         }
     });
 };
@@ -341,6 +355,10 @@ const changeLang = () => {
     localStorage.setItem('keyboardLang', keyboardObject.lang);
     updateKeys();
 };
+
+const disableTextareaInput = (event) => {
+    event.preventDefault();
+}
 
 const init = () => {
     createTextarea();
