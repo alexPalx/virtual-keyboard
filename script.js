@@ -9,7 +9,7 @@ class Key {
 
 class Keyboard {
     constructor(...keysets) {
-        this.lang = 0;
+        this.lang = +localStorage.getItem('keyboardLang') || 0;
         this.keys = [];
         keysets.forEach((set, i) => {
             this.keys.push([]);
@@ -338,6 +338,7 @@ const createKeyboard = () => {
 
 const changeLang = () => {
     keyboardObject.lang = +!keyboardObject.lang;
+    localStorage.setItem('keyboardLang', keyboardObject.lang);
     updateKeys();
 };
 
